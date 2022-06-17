@@ -29,10 +29,10 @@ public class LoginPasswordCheck {
             throw new WrongLoginException("Слишком длинный логин");
         }
         if (Objects.isNull(password) || password.length() > 20 || hasValidSymbols(password)){
-            throw new WrongLoginException("Слишком длинный пароль");
+            throw new WrongPasswordException("Слишком длинный пароль");
         }
         if (!password.equals(confirmPassword)){
-            throw new WrongLoginException("Пароли не совпадают");
+            throw new WrongPasswordException("Пароли не совпадают");
     }
     }
 
