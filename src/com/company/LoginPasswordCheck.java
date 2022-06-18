@@ -25,25 +25,31 @@ public class LoginPasswordCheck {
     private static void validate (String login,
                                  String password,
                                  String confirmPassword) throws WrongLoginException, WrongPasswordException{
-        if (Objects.isNull(login) || login.length() > 20 || hasValidSymbols(login)){
+        if (Objects.isNull(login) || login.length() > 20){
             throw new WrongLoginException("Слишком длинный логин");
         }
-        if (Objects.isNull(password) || password.length() > 20 || hasValidSymbols(password)){
+        if (!hasValidSymbols(login)){
+            throw new WrongLoginException("Логин должен содержать только допустимые символы");
+        }
+        if (Objects.isNull(password) || password.length() > 20){
             throw new WrongPasswordException("Слишком длинный пароль");
+        }
+        if (!hasValidSymbols(password)){
+            throw new WrongPasswordException("Пароль должен содержать только допустимые символы");
         }
         if (!password.equals(confirmPassword)){
             throw new WrongPasswordException("Пароли не совпадают");
-    }
+
+        }
     }
 
+
     private static boolean hasValidSymbols(String s){
-        char[] symbols = s.toCharArray();
+        /*char[] symbols = s.toCharArray();
         for (char symbol : symbols){
-                if(!validSymbols.contains(String.valueOf(symbol))){
-                    return false;
-                }
-                
-            }
-        return true;
-}
+            if(!validSymbols.contains(String.valueOf(symbol))){
+                return false;}}
+       return true; */
+        return s.matches("[A-z0-9_]+");
+    }
 }
